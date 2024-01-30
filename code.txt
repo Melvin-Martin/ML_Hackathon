@@ -1,0 +1,55 @@
+
+
+lst=  [
+    'File_1.1.3',
+    'File_1.2.3',
+    'File_1.3.3',
+    'File_2.1.1',
+   'File_3.1.2',
+    'File_3.2.2'
+]
+
+file_complete = True
+chunk_complete = True
+
+prev_file = 0
+
+
+for ls in lst:
+    file_name = ls
+    file_count = int(ls.split('_')[1].split('.')[0])
+    chunk_number = int(ls.split('_')[1].split('.')[1])
+    total_chunk = int(ls.split('_')[1].split('.')[2])
+    
+    if file_complete == True and chunk_complete == True:
+        prev_chunk = 0
+        if (prev_file+1 != file_count):
+            print('File_not_received')
+            print('************')
+            break 
+        else:
+            chunk_complete = False
+            file_complete = False
+    
+    if file_complete == False:
+         print(prev_chunk,chunk_number)
+         if (chunk_number == total_chunk) and (prev_chunk==chunk_number-1) :
+            print(file_name)
+            chunk_complete = True
+            file_complete = True
+         else:
+             if (prev_chunk+1 != chunk_number):
+                print('Chunk not received')
+                print('************')
+                break
+
+             else:
+                chunk_complete = False
+                file_complete = False
+                
+    
+   
+
+    prev_file = file_count
+    prev_chunk = chunk_number
+ 
